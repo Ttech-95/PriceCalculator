@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Price Calculator.iml" filepath="$PROJECT_DIR$/.idea/Price Calculator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Price Calculator GUI/Tkinter/.idea/Tkinter.iml" filepath="$PROJECT_DIR$/../Price Calculator GUI/Tkinter/.idea/Tkinter.iml" />
     </modules>
   </component>
 </project>
