@@ -8,31 +8,29 @@ window.title("Etsy Price Calculator")
 window.configure(background="black")
 
 # Global Variables- Mostly to avoid weak warnings :P
-
-whole = float(0)
+text1 = StringVar()
+text2 = StringVar()
 
 # Welcome message
-intro = Label(window, text='Welcome to the etsy price calculator!', bg="black", fg="white")
+intro = Label(window, text='Welcome to the Etsy price calculator!', bg="black", fg="white")
 intro.grid(row=0, column=0, sticky=W)
 
 # # 1st Calculation
 # 1st Question
 
-inv = Label(window, text="How much did we pay for the item? :", bg="gray", fg="white")
-inv.grid(row=1, column=0, sticky=W)
-
-textentry1 = Entry(window, width=70, bg="white", fg="black")
-textentry1.grid(row=2, column=0, sticky=W)
-invinput: float = textentry1.get()
-
 
 def click1():
-    invinput: float = textentry1.get()
-    print(invinput)
+    return text1.get()
 
 
 click1()
 
+
+inv = Label(window, text="How much did we pay for the item? :", bg="gray", fg="white")
+inv.grid(row=1, column=0, sticky=W)
+
+textentry1 = Entry(window, textvariable=text1, width=70, bg="white", fg="black")
+textentry1.grid(row=2, column=0, sticky=W)
 
 btn1 = Button(window, text="Submit", width=6, command=click1)
 btn1.grid(row=2, column=1, sticky=E)
@@ -42,34 +40,31 @@ btn1.grid(row=2, column=1, sticky=E)
 prof = Label(window, text="How much profit would you like to get out of each sale? :", bg="gray", fg="white")
 prof.grid(row=3, column=0, sticky=W)
 
-textentry2 = Entry(window, width=70, bg="white", fg="black")
+textentry2 = Entry(window, textvariable=text2, width=70, bg="white", fg="black")
 textentry2.grid(row=4, column=0, sticky=W)
-profinput: float = textentry2.get()
 
 
 def click2():
-    profinput: float = textentry2.get()
-    print(profinput)
-    whole1 = invinput + profinput
-
+    return textentry2.get()
 
 
 click2()
 
-whole1 = invinput + profinput
+
 btn2 = Button(window, text="Submit", width=6, command=click2)
 btn2.grid(row=4, column=1, sticky=E)
 
 
 def click3():
-    print(invinput + profinput)
+    print(float(click1()) + float(click2()))
 
 
-click3()
+click2()
 
 
-btn3 = Button(window, text="BTN3", width=6, command=click3)
-btn3.grid(row=5, column=2, sticky=E)
+btn3 = Button(window, text="Submit", width=6, command=click3)
+btn3.grid(row=5, column=1, sticky=E)
+
 # Loop Closer
 window.mainloop()
 
@@ -89,7 +84,7 @@ def cost_profit_input():
     investment = input("How much did we pay for the item? :")
     profit = input("How much profit would you like to get out of each sale? :")
     global whole
-    #whole = (float(investment) + float(profit))
+    # whole = (float(investment) + float(profit))
     return
 
 
@@ -141,4 +136,3 @@ percentage()
 
 
 print("Listing this item at " + str(desired) + " euros will cost you " + str(fees) + "euros in fees.")
-
