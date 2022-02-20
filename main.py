@@ -3,17 +3,17 @@ from tkinter import *
 
 # App Window
 window = Tk()
-canvas = Canvas(window, width=300, height=500)
+canvas = Canvas(window, width=150, height=500)
 window.title("Etsy Price Calculator")
-window.configure(background="black")
+window.configure(background="grey", padx=10, pady=10)
 
 # Global Variables- Mostly to avoid weak warnings :P
 text1 = StringVar()
 text2 = StringVar()
 
 # Welcome message
-intro = Label(window, text='Welcome to the Etsy price calculator!', bg="black", fg="white")
-intro.grid(row=0, column=0, sticky=W)
+intro = Label(window, text='Welcome to the Etsy price calculator!', font=35, bg="grey", fg="white", pady=10)
+intro.grid(row=0, column=0, sticky=W, pady=5, padx=5)
 
 # # 1st Calculation
 # 1st Question
@@ -27,21 +27,21 @@ click1()
 
 
 inv = Label(window, text="How much did we pay for the item? :", bg="gray", fg="white")
-inv.grid(row=1, column=0, sticky=W)
+inv.grid(row=1, column=0, sticky=W, pady=5, padx=5)
 
 textentry1 = Entry(window, textvariable=text1, width=70, bg="white", fg="black")
-textentry1.grid(row=2, column=0, sticky=W)
+textentry1.grid(row=2, column=0, sticky=W, padx=5)
 
 btn1 = Button(window, text="Submit", width=6, command=click1)
-btn1.grid(row=2, column=1, sticky=E)
+btn1.grid(row=2, column=1, sticky=E, pady=5, padx=5)
 
 
 # 2nd Question
 prof = Label(window, text="How much profit would you like to get out of each sale? :", bg="gray", fg="white")
-prof.grid(row=3, column=0, sticky=W)
+prof.grid(row=3, column=0, sticky=W, pady=5, padx=5)
 
 textentry2 = Entry(window, textvariable=text2, width=70, bg="white", fg="black")
-textentry2.grid(row=4, column=0, sticky=W)
+textentry2.grid(row=4, column=0, sticky=W, padx=5)
 
 
 def click2():
@@ -52,18 +52,18 @@ click2()
 
 
 btn2 = Button(window, text="Submit", width=6, command=click2)
-btn2.grid(row=4, column=1, sticky=E)
+btn2.grid(row=4, column=1, sticky=E, pady=5, padx=5)
 
 
-def click3():
-    print(float(click1()) + float(click2()))
-
-
-click2()
-
-
-btn3 = Button(window, text="Submit", width=6, command=click3)
-btn3.grid(row=5, column=1, sticky=E)
+#def click3():
+#    print(float(click1()) + float(click2()))
+#
+#
+#click2()
+#
+#
+#btn3 = Button(window, text="Submit", width=6, command=click3)
+#btn3.grid(row=5, column=1, sticky=E)
 
 # Loop Closer
 window.mainloop()
