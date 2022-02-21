@@ -7,14 +7,17 @@ canvas = Canvas(window, width=150, height=700)
 window.title("Etsy Price Calculator")
 window.configure(background="grey", padx=10, pady=10)
 
-# Global Variables- Mostly to avoid weak warnings :P
+# Global Variables
 text1 = StringVar()
 text2 = StringVar()
 text3 = IntVar()
-# whole = StringVar()
+
 
 ischecked1 = IntVar()
-
+ischecked1.set(0)
+ischecked2 = IntVar()
+ischecked2.set(0)
+shipping = 0
 
 # Welcome message
 intro = Label(window, text='Welcome to the Etsy price calculator!', font=35, bg="grey", fg="white", pady=10)
@@ -66,6 +69,7 @@ btn2.grid(row=4, column=1, sticky=E, pady=5, padx=5)
 
 
 def click3():
+    global whole
     whole = (float(click1()) + float(click2()))
     lwhole.configure(text=whole)
 
@@ -82,55 +86,61 @@ lf2.grid(row=6, column=0, padx=10, pady=10)
 
 # Size Question Label
 size = Label(lf2, text="Will the shipping box fit the Normal/Registrado requirements?", bg="gray", fg="white")
-size.grid(row=0, column=0, pady=5, padx=5, sticky=W)
+size.grid(row=1, column=0, pady=5, padx=5, sticky=W)
 
 # Checkbuttons
 
 
-def click4():
-    return text3.get()
-
-
-click4()
-
-grams1 = int(click4())
-ischecked1.set(1)
-
-
 def checkbox_yes():
+    global shipping
     if ischecked1.get() == 1:
-        if 0 < grams1 < 250:
+        ischecked2.set(0)
+        grams1 = text3.get()
+        if 0 <= grams1 < 250:
             shipping = 8
-            print(grams1)
-
-
-checkbox_yes()
+        if 251 < grams1 < 500:
+            shipping = 12
+        if 501 < grams1 < 1000:
+            shipping = 18
+        if 1001 < grams1 < 2000:
+            shipping = 23
+        if grams1 >= 2000:
+            shipping = 30
+        print(shipping)
 
 
 def checkbox_no():
-    if ischecked1.get() == 2:
-        print("no")
+    global shipping
+    if ischecked2.get() == 1:
+        ischecked1.set(0)
         shipping = 50
         print(shipping)
 
 
-rb1 = Radiobutton(lf2, text="Yes", command=checkbox_yes, variable=ischecked1, value=1)
-rb1.grid(row=0, column=2)
-rb2 = Radiobutton(lf2, text="No", command=checkbox_no, variable=ischecked1, value=2)
-rb2.grid(row=0, column=3, sticky=W)
+rb1 = Checkbutton(lf2, text="Yes", command=checkbox_yes, variable=ischecked1)
+rb1.grid(row=1, column=1, sticky=E)
+rb2 = Checkbutton(lf2, text="No", command=checkbox_no, variable=ischecked2)
+rb2.grid(row=1, column=2, sticky=W)
 
 # Weight Question Label
 weight = Label(lf2, text="How much does the item weigh in grams?", bg="gray", fg="white")
-weight.grid(row=2, column=0, pady=5, padx=5, sticky=W)
+weight.grid(row=0, column=0, pady=5, padx=5, sticky=W)
 
 
-textentry3 = Entry(lf2, textvariable=text3, width=50, bg="white", fg="black")
-textentry3.grid(row=3, column=0, sticky=W, padx=5)
-
-btn4 = Button(lf2, text="Submit", width=6, command=click4)
-btn4.grid(row=3, column=1, sticky=E, pady=5, padx=5)
+textentry3 = Entry(lf2, textvariable=text3, width=12, bg="white", fg="black")
+textentry3.grid(row=0, column=1, columnspan=2, sticky=E, padx=5)
 
 
+# Base Cost Calc
+def click5():
+    base_cost = (shipping + whole)
+    basecost.configure(text=base_cost)
+
+
+basecost = Label(lf2, text="result", bg="white", fg="black")
+basecost.grid(row=2, column=1, sticky=W, pady=5, padx=5)
+btn3 = Button(lf2, text="Base Cost", width=10, command=click5)
+btn3.grid(row=2, column=0, sticky=E, pady=5, padx=5)
 # Loop Closer
 window.mainloop()
 
@@ -144,32 +154,10 @@ fees = 0
 
 # App Mechanics
 
-def weight():
-    size = input("Will the shipping box fit the Normal/Registrado requirements (ENTER = yes / 0 = no ? :")
-    if size == "":
-        grams = int(input("How much does the item weigh in grams? :"))
-        global shipping
-        if 0 < grams < 250:
-            shipping = 8
-        if 251 < grams < 500:
-            shipping = 12
-        if 501 < grams < 1000:
-            shipping = 18
-        if 1001 < grams < 2000:
-            shipping = 23
-        if grams >= 2000:
-            shipping = 30
-    else:
-        shipping = 50
-    return
-
-
-weight()
-
 
 def cost():
     global base_cost
-    #base_cost = (shipping + whole)
+    # base_cost = (shipping + whole)
     return
 
 
