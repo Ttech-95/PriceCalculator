@@ -10,8 +10,8 @@ window.configure(background="grey", padx=10, pady=10)
 # Global Variables- Mostly to avoid weak warnings :P
 text1 = StringVar()
 text2 = StringVar()
-text3 = StringVar()
-whole = StringVar()
+text3 = IntVar()
+# whole = StringVar()
 
 ischecked1 = IntVar()
 
@@ -53,7 +53,7 @@ textentry2.grid(row=4, column=0, sticky=W, padx=5)
 
 
 def click2():
-    return textentry2.get()
+    return text2.get()
 
 
 click2()
@@ -86,15 +86,32 @@ size.grid(row=0, column=0, pady=5, padx=5, sticky=W)
 
 # Checkbuttons
 
+
+def click4():
+    return text3.get()
+
+
+click4()
+
+grams1 = int(click4())
 ischecked1.set(1)
+
+
 def checkbox_yes():
     if ischecked1.get() == 1:
-        print("yes")
+        if 0 < grams1 < 250:
+            shipping = 8
+            print(grams1)
+
+
+checkbox_yes()
 
 
 def checkbox_no():
     if ischecked1.get() == 2:
         print("no")
+        shipping = 50
+        print(shipping)
 
 
 rb1 = Radiobutton(lf2, text="Yes", command=checkbox_yes, variable=ischecked1, value=1)
@@ -105,10 +122,6 @@ rb2.grid(row=0, column=3, sticky=W)
 # Weight Question Label
 weight = Label(lf2, text="How much does the item weigh in grams?", bg="gray", fg="white")
 weight.grid(row=2, column=0, pady=5, padx=5, sticky=W)
-
-
-def click4():
-    pass
 
 
 textentry3 = Entry(lf2, textvariable=text3, width=50, bg="white", fg="black")
@@ -123,7 +136,7 @@ window.mainloop()
 
 
 # Functional Cli App
-shipping = 0
+
 base_cost = 0
 desired = 0
 fees = 0
@@ -156,7 +169,7 @@ weight()
 
 def cost():
     global base_cost
-    base_cost = (shipping + whole)
+    #base_cost = (shipping + whole)
     return
 
 
