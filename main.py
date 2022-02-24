@@ -154,16 +154,6 @@ fees = 0
 
 # App Mechanics
 
-
-def cost():
-    global base_cost
-    # base_cost = (shipping + whole)
-    return
-
-
-cost()
-
-
 def percentage():
     print("The total cost including materials, profit and shipping is " + str(base_cost) + "euros.")
     global desired
