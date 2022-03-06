@@ -3,7 +3,6 @@ from tkinter import *
 
 # App Window
 window = Tk()
-canvas = Canvas(window, width=150, height=700)
 window.title("Etsy Price Calculator")
 window.configure(background="grey", padx=10, pady=10)
 
@@ -11,13 +10,15 @@ window.configure(background="grey", padx=10, pady=10)
 text1 = StringVar()
 text2 = StringVar()
 text3 = IntVar()
-
+text4 = IntVar()
 
 ischecked1 = IntVar()
 ischecked1.set(0)
 ischecked2 = IntVar()
 ischecked2.set(0)
 shipping = 0
+whole = 0
+percent = 15
 
 # Welcome message
 intro = Label(window, text='Welcome to the Etsy price calculator!', font=35, bg="grey", fg="white", pady=10)
@@ -40,19 +41,19 @@ click1()
 inv = Label(lf1, text="How much did we pay for the item? :", bg="gray", fg="white")
 inv.grid(row=1, column=0, sticky=W, pady=5, padx=5)
 
-textentry1 = Entry(lf1, textvariable=text1, width=50, bg="white", fg="black")
-textentry1.grid(row=2, column=0, sticky=W, padx=5)
+textentry1 = Entry(lf1, textvariable=text1, width=10, bg="white", fg="black")
+textentry1.grid(row=1, column=1, sticky=W, padx=5)
 
-btn1 = Button(lf1, text="Submit", width=6, command=click1)
-btn1.grid(row=2, column=1, sticky=E, pady=5, padx=5)
+# btn1 = Button(lf1, text="Submit", width=6, command=click1)
+# btn1.grid(row=2, column=1, sticky=E, pady=5, padx=5)
 
 
 # 2nd Question
 prof = Label(lf1, text="How much profit would you like to get out of each sale? :", bg="gray", fg="white")
 prof.grid(row=3, column=0, sticky=W, pady=5, padx=5)
 
-textentry2 = Entry(lf1, textvariable=text2, width=50, bg="white", fg="black")
-textentry2.grid(row=4, column=0, sticky=W, padx=5)
+textentry2 = Entry(lf1, textvariable=text2, width=10, bg="white", fg="black")
+textentry2.grid(row=3, column=1, sticky=W, padx=5)
 
 
 def click2():
@@ -62,8 +63,8 @@ def click2():
 click2()
 
 
-btn2 = Button(lf1, text="Submit", width=6, command=click2)
-btn2.grid(row=4, column=1, sticky=E, pady=5, padx=5)
+# btn2 = Button(lf1, text="Submit", width=6, command=click2)
+# btn2.grid(row=4, column=1, sticky=E, pady=5, padx=5)
 
 # Cost + Profit Button
 
@@ -85,7 +86,7 @@ lf2 = LabelFrame(window, text="Shipping", bg="grey", fg="white")
 lf2.grid(row=6, column=0, padx=10, pady=10)
 
 # Size Question Label
-size = Label(lf2, text="Will the shipping box fit the Normal/Registrado requirements?", bg="gray", fg="white")
+size = Label(lf2, text="Will the box fit the Normal/Registrado requirements?", bg="gray", fg="white")
 size.grid(row=1, column=0, pady=5, padx=5, sticky=W)
 
 # Checkbuttons
@@ -141,29 +142,28 @@ basecost = Label(lf2, text="result", bg="white", fg="black")
 basecost.grid(row=2, column=1, sticky=W, pady=5, padx=5)
 btn3 = Button(lf2, text="Base Cost", width=10, command=click5)
 btn3.grid(row=2, column=0, sticky=E, pady=5, padx=5)
-# Loop Closer
-window.mainloop()
 
-
-# Functional Cli App
-
-base_cost = 0
-desired = 0
+# Fee percentage calculator
 fees = 0
 
 
-# App Mechanics
-
-def percentage():
-    print("The total cost including materials, profit and shipping is " + str(base_cost) + "euros.")
-    global desired
-    desired = input("Considering this, what price seems fitting? :")
-    percent = 15
+def click6():
     global fees
-    fees = percent * float(desired) / 100.0
+    fees = percent * float(text4.get()) / 100.0
+    lfees.configure(text=fees)
 
 
-percentage()
+# Fee percentage label frame
+lf3 = LabelFrame(window, text="Fees", bg="grey", fg="white")
+lf3.grid(row=7, column=0, padx=10, pady=10)
+desiredprice = Label(lf3, text="Considering the cost, what would you price the item ?", bg="grey", fg="white")
+desiredprice.grid(row=0, column=0, sticky=W, pady=5, padx=5)
+priceentry = Entry(lf3, textvariable=text4, width=12, bg="white", fg="black")
+priceentry.grid(row=0, column=1, columnspan=2, sticky=E, padx=5)
+btn4 = Button(lf3, text="Fees", width=10, command=click6)
+btn4.grid(row=1, column=0, sticky=E, pady=5, padx=5)
+lfees = Label(lf3, text="result", bg="white", fg="black")
+lfees.grid(row=1, column=1, sticky=W, pady=5, padx=5)
 
-
-print("Listing this item at " + str(desired) + " euros will cost you " + str(fees) + "euros in fees.")
+# Loop Closer
+window.mainloop()
